@@ -44,7 +44,7 @@ concurrency:
 env:
   # The one variable that separates the arms: on baseline, action-checkout
   # skips its Set up Chalk step entirely.
-  CHALK_ON: ${{ github.event_name == 'workflow_dispatch' && inputs.leg != 'baseline' }}
+  CHALK_ON: ${{ inputs.leg == 'instrumented' }}
   TZ: /usr/share/zoneinfo/America/Los_Angeles
   # https://github.com/actions/cache/blob/main/tips-and-workarounds.md#cache-segment-restore-timeout
   SEGMENT_DOWNLOAD_TIMEOUT_MINS: 1
@@ -754,7 +754,7 @@ jobs:
         #
         # Note that this means that scripts/release/download-experimental-build.js must be run with
         # --no-verify when downloading a build from a fork.
-        if: github.event_name == 'push' && (github.ref_name == 'main' || startsWith(github.ref_name, 'releases/')) || github.event.pull_request.head.repo.full_name == github.repository
+        if: ${{ 'push' == 'push' && (github.ref_name == 'main' || startsWith(github.ref_name, 'releases/')) || github.event.pull_request.head.repo.full_name == github.repository }}
         with:
           subject-name: artifacts_combined.zip
           subject-digest: sha256:${{ steps.upload_artifacts_combined.outputs.artifact-digest }}
@@ -1261,7 +1261,7 @@ jobs:
 
   # ----- SIZEBOT -----
   sizebot:
-    if: ${{ github.event_name == 'pull_request' && github.ref_name != 'main' && github.event.pull_request.base.ref == 'main' }}
+    if: ${{ 'push' == 'pull_request' && github.ref_name != 'main' && github.event.pull_request.base.ref == 'main' }}
     name: Run sizebot
     needs: [build_and_lint]
     permissions:
