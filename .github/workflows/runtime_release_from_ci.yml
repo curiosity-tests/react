@@ -39,10 +39,6 @@ on:
         description: Force a Discord notification?
         type: boolean
         default: false
-  schedule:
-    # At 10 minutes past 16:00 on Mon, Tue, Wed, Thu, and Fri.
-    # Scheduled runs always publish a nightly (see `resolve` job).
-    - cron: 10 16 * * 1,2,3,4,5
 
 permissions: {}
 

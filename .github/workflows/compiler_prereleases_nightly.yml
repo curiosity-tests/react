@@ -1,9 +1,7 @@
 name: (Compiler) Publish Prereleases Nightly
 
 on:
-  schedule:
-    # At 10 minutes past 16:00 on Mon, Tue, Wed, Thu, and Fri
-    - cron: 10 16 * * 1,2,3,4,5
+  workflow_dispatch:
 
 permissions: {}
 

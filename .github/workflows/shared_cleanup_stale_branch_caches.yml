@@ -2,9 +2,6 @@
 
 name: (Shared) Cleanup Stale Branch Caches
 on:
-  schedule:
-    # Every 6 hours
-    - cron: 0 */6 * * *
   workflow_dispatch:
 
 permissions: {}
